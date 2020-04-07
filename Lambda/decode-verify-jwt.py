@@ -36,7 +36,7 @@ def lambda_handler(event, context):
     key_index = -1
     for i in range(len(keys)):
         if kid == keys[i]['kid']:
-            key_index = i
+            key_index = i 
             break
     if key_index == -1:
         print('Public key not found in jwks.json')
