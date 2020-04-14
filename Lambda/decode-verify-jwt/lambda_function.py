@@ -59,14 +59,19 @@ def lambda_handler(event, context):
     # additionally we can verify the token expiration
     if time.time() > claims['exp']:
         print('Token is expired')
-        return False
+        return {
+            "statusCode":200,
+            "body":"you did it."+json.dumps(event)+json.dumps(claims)
+        }
     # and the Audience  (use claims['client_id'] if verifying an access token)
     if claims['aud'] != app_client_id:
         print('Token was not issued for this audience')
         return False
     # now we can use the claims
-    print(claims)
-    return claims
+    return {
+            "statusCode":200,
+            "body":"you did it."+claims
+        }
         
 # the following is useful to make this script executable in both
 # AWS Lambda and any other local environments
@@ -74,8 +79,8 @@ if __name__ == '__main__':
     # for testing locally you can enter the JWT ID Token here
     event = {
         "queryStringParameters": { 
-            "id_token": "eyJraWQiOiIxMEgxNFZBWDlGRnRUV29Fa3k5akQrNGZRM1lKOExjWkltMWI3REZrQ2lrPSIsImFsZyI6IlJTMjU2In0.eyJhdF9oYXNoIjoid0plemJWUVFpd0tlWEFiZ1EteDdWdyIsInN1YiI6IjVjNmMwODZiLTNhNDAtNGVhMy04ZjE4LWQxMmI2NmNhMjgxMSIsImF1ZCI6IjJkaDNrYmhpcmI2cWowbHFqN2Vkc250bzZkIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImV2ZW50X2lkIjoiMWQyZDdmYjAtMTJmOS00M2RmLTkyY2UtOGVjOGY2OTU5OWJiIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE1ODYyMTU5MjQsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0E1cjBTcEpUNSIsImNvZ25pdG86dXNlcm5hbWUiOiI1YzZjMDg2Yi0zYTQwLTRlYTMtOGYxOC1kMTJiNjZjYTI4MTEiLCJleHAiOjE1ODYyMTk1MjQsImlhdCI6MTU4NjIxNTkyNCwiZW1haWwiOiJ0ZXN0ZG9lcjFAYmVydHdhZ25lci5jb20ifQ.ie70sp2MSDz_UoSacRvCNoQTolntQZuX26WXUh_UCzUYhQxROihH9SDcXxCEyCentNRbQFGP58AunArBDEXTX6tHb1LRv8M3DD-h9Q_5yq6IlLrq-RLTaHdlZodndw06-6Y6SGbgRMiJrNoFz5wdMyh9Fyc_TXsZdQEmSwEiCC1U-pcwN6i3YIXIHorFM4VuYGBITP9lrLv72gfKWHAqHQowOHMWFdgID-laFvGMKSrl05RgJIxyIy4ZI0zHH_-FLDxWdnpdSF-1zxA9YRg-op27d7PeCxYAV2-6eDVPaOZVI4mYM8hDfGux2RVmploXDMZClPD_WjooPWkp6VRibg", 
-            "access_token": "eyJraWQiOiJ0RE1kTEFuVVA5U25JMUxhSU0yalpBTGx6ZDd5UlhcLzlZY3V5dWZTK0ErZz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI1YzZjMDg2Yi0zYTQwLTRlYTMtOGYxOC1kMTJiNjZjYTI4MTEiLCJldmVudF9pZCI6IjFkMmQ3ZmIwLTEyZjktNDNkZi05MmNlLThlYzhmNjk1OTliYiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoib3BlbmlkIGVtYWlsIiwiYXV0aF90aW1lIjoxNTg2MjE1OTI0LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9BNXIwU3BKVDUiLCJleHAiOjE1ODYyMTk1MjQsImlhdCI6MTU4NjIxNTkyNCwidmVyc2lvbiI6MiwianRpIjoiYzFlOTE2YmUtY2MxZC00Y2RkLWFiNDAtMzVkNzJkNjdkNGU5IiwiY2xpZW50X2lkIjoiMmRoM2tiaGlyYjZxajBscWo3ZWRzbnRvNmQiLCJ1c2VybmFtZSI6IjVjNmMwODZiLTNhNDAtNGVhMy04ZjE4LWQxMmI2NmNhMjgxMSJ9.trrKv87PNRQK2Li_cRK7VcUKwchTBmckwl_G7jLG_HSQJbvHWfElTWt2bMjA2_FsTtLJnG66jCdhKE30bdnKoGwxKoJPgwQvg__TFL7pWtdvWeFyP5Kk-aiKTton4qS8_B8N2-pXTT1JVl2UQEuOapDyZLWK4G5OkB7gmhwCCEbkahiXKvmNaY8r4Hp7uxdM3Um4wKJcAde0GCaavu-W_RYTdvL_ZUUqS14R0NyA63hHCpoIPUIu-NKr6xgBhlgsENvXpVms4889s705P6Y0cAIOJhedT24mQ5rhJ2Xgq95rDOAkVxzNRSK6A-nWTEg-6DcNaZSIqKOfS6MtaaxRtw",
+            "id_token": "eyJraWQiOiJldWVKV1JjeHhYSmVsSTNZV1Y2TnAwRWJkdVpqN2hqMEJWUmtUSEJhSFM4PSIsImFsZyI6IlJTMjU2In0.eyJhdF9oYXNoIjoiNjcxNWZKMVhyb2dwcUJoVEFNZnVQQSIsInN1YiI6ImM5MDcxYWU5LWZiNGUtNDRiZC1iZTg0LWMyZmYwZDI1ZWY0MSIsImF1ZCI6IjZubThpMzdrMmdzbmloaGFlaTI3MTFkNmhvIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTg2NjA1MjkwLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9CQVdWekZaQVciLCJjb2duaXRvOnVzZXJuYW1lIjoiYzkwNzFhZTktZmI0ZS00NGJkLWJlODQtYzJmZjBkMjVlZjQxIiwiZXhwIjoxNTg2NjA4ODkwLCJpYXQiOjE1ODY2MDUyOTEsImVtYWlsIjoiYnVzeWJlZTFAYmVydHdhZ25lci5jb20ifQ.dtM7o7DwVvqZvgqmCHQYCDopAtZa-9s3DGNMEftYADz1D9IQG4vqJBDSnIQ-FsfTInzZ75GcvPorNw46V2oZx-rMFGGD7TcbPnti__AuAMwdJEDRLsH8ZKMfHp7eQCIhz35JIgIHP4m3lFsd1txvaKXSJ-FXmioMJWor4EF9pmXF_OJCjPSvyOr18KJNmHMa1sr0peZZMc1Jn2FiwomDiJsvsukd6gBuiOakmU4lp3t2AuQTIaRl6RPpFpi1lyU0bOoiidy_Gu4Lzad9Z3QYbe7umZuOEmQFnuA8SoxRbzi5kWRYbcNpREt6R_gmegwomqjcEC3GMbgc8IZURjVFHw", 
+            "access_token": "eyJraWQiOiIwbmtIYTdTOXhmUDhEcThcLytubE91NFl6dXpYYlFValwvN0djWUczQUxZdU09IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjOTA3MWFlOS1mYjRlLTQ0YmQtYmU4NC1jMmZmMGQyNWVmNDEiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6Im9wZW5pZCBlbWFpbCIsImF1dGhfdGltZSI6MTU4NjYwNTI5MCwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfQkFXVnpGWkFXIiwiZXhwIjoxNTg2NjA4ODkwLCJpYXQiOjE1ODY2MDUyOTEsInZlcnNpb24iOjIsImp0aSI6IjFhNzU3YWJmLTYyNzItNDVmYy1hNDdmLTQyNGI5MmYwOTMwMyIsImNsaWVudF9pZCI6IjZubThpMzdrMmdzbmloaGFlaTI3MTFkNmhvIiwidXNlcm5hbWUiOiJjOTA3MWFlOS1mYjRlLTQ0YmQtYmU4NC1jMmZmMGQyNWVmNDEifQ.OZvuaqkrrooUmE0v2UUBpLSRU4nLSvyEKwoMPkwvoSS42Kc8Xj-3ybmZrENQiL9kw7QsaYWDriPEqcEWKibZST0Zu0ZCFSJktDl2ZLeH13GMPhzsuqntbE09MCBBHsOXfloYLScns7tslH9yEmWAluCmPJLhplIXWCqE0hplUcMXpXj8rlsJ1hGhJS8SF58ka0H9fqanHrZsnUSkaC0LbGCGFkBd93dR5V8b4WS0-JhdvlZ-iSFroRG4EMAylstjGt3OeyWbTNeWwZwmhuk6qOx3yw2wYek2oxN_cLKtnxWIe5Et0mlUeM93OVL6oFohDuYE_jqnFWKq-KBDmYaQ1A",
             "expires_in":"3600",
             "token_type":"Bearer"
             }
