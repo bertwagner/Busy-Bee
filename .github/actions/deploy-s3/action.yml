@@ -1,5 +1,4 @@
 # Based on https://github.com/jakejarvis/s3-sync-action
-
 name: "Deploy S3"
 description: "Copies a repository folder to an S3 bucket"
 runs:
