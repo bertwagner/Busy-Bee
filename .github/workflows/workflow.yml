@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       
-    - uses: ./.github/actions/deploy-s3/action.yml
+    uses: ./.github/actions/deploy-s3/action.yml
       with:
         args: --acl public-read --follow-symlinks --delete
       env:
