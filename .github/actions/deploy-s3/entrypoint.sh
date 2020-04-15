@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/sh -l
 
-echo "hi!"
+echo "Hello $1"
+time=$(date)
+echo "::set-output name=time::$time"
 # set -e
 
 # aws configure --profile deploy-s3 <<-EOF > /dev/null 2>&1
