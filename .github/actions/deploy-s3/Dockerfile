@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 
-RUN pip install --quiet --no-cache-dir awscli==2.0.7
+RUN pip install --quiet --no-cache-dir awscli==1.18.39
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
