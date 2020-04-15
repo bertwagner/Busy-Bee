@@ -1,0 +1,20 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      uses: ./.github/actions/deploy-s3/action.yml
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_Access_Key_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_Secret_Access_Key }}
+        AWS_REGION: 'us-east-1'
+        SOURCE_DIR: 'S3/busy-bee.app'
+        AWS_S3_BUCKET: 'busy-bee.app'
