@@ -13,11 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Copy to S3
-      uses: ./github/actions/deploy-s3/action.yml
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_Access_Key_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_Secret_Access_Key }}
-        AWS_REGION: 'us-east-1'
-        SOURCE_DIR: 'S3/busy-bee.app'
-        AWS_S3_BUCKET: 'busy-bee.app'
+    # - name: Copy to S3
+    #   uses: ./github/actions/deploy-s3/action.yml
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_Access_Key_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_Secret_Access_Key }}
+    #     AWS_REGION: 'us-east-1'
+    #     SOURCE_DIR: 'S3/busy-bee.app'
+    #     AWS_S3_BUCKET: 'busy-bee.app'
