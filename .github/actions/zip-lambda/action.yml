@@ -1,0 +1,6 @@
+# Based on https://github.com/jakejarvis/s3-sync-action
+name: 'Zip Lambda'
+description: 'Downloads depdencies and zips up lambda code.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
