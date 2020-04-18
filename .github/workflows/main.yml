@@ -5,8 +5,7 @@ on:
 name: Deploy to AWS
 
 jobs:
-  deploy:
-
+  lambda-decode-verify-jwt:
     name: "Deploy Lambda decode-verify-jwt"
     runs-on: ubuntu-latest
     steps:
@@ -18,6 +17,7 @@ jobs:
         AWS_REGION: 'us-east-1'
         LAMBDA_DIRECTORY: 'Lambda/decode-verify-jwt'
 
+  s3-busy-bee.app:
     name: "Deploy Static busy-bee.app Website"
     runs-on: ubuntu-latest
     steps:
