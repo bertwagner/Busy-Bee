@@ -35,7 +35,7 @@ install_zip_dependencies(){
 
 deploy_lambda_function(){
     configure_aws_credentials
-	install_zip_dependencies
+	# install_zip_dependencies
 	# publish_dependencies_as_layer
 	# publish_function_code
 	# update_function_layers
