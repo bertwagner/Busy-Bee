@@ -37,7 +37,7 @@ echo "BERT WAS HERE"
 # # 	aws lambda update-function-configuration --function-name "${INPUT_LAMBDA_FUNCTION_NAME}" --layers "${INPUT_LAMBDA_LAYER_ARN}:${LAYER_VERSION}"
 # # }
 
-deploy_lambda_function(){
+deploy_lambda_function() {
     #configure_aws_credentials
 	# install_zip_dependencies
 	# publish_dependencies_as_layer
@@ -48,4 +48,4 @@ deploy_lambda_function(){
 
 
 deploy_lambda_function
-# echo "Each step completed, check the logs if any error occured."
+echo "Each step completed, check the logs if any error occured."
