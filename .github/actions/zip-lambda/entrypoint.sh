@@ -43,6 +43,7 @@ deploy_lambda_function(){
 	# update_function_layers
 }
 
-printf "TEST TEST BERT TEST"
+echo "test bert1234"
+printf "TEST TEST BERT1234 TEST"
 deploy_lambda_function
 echo "Each step completed, check the logs if any error occured."
