@@ -9,7 +9,8 @@ configure_aws_credentials(){
 install_zip_dependencies(){
 	echo "Installing and zipping dependencies..."
 	mkdir python
-	pip install --target=python -r "${LAMBDA_DIRECTORY}"/requirements.txt
+    echo "Looking into Directory: ${LAMBDA_DIRECTORY}"
+	pip install --target=python -r "${LAMBDA_DIRECTORY}/requirements.txt"
 	zip -r dependencies.zip ./python
 }
 
