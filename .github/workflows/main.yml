@@ -15,7 +15,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_Access_Key_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_Secret_Access_Key }}
         AWS_REGION: 'us-east-1'
-        LAMBDA_DIRECTORY: 'Lambda/decode-verify-jwt'
+        LAMBDA_NAME: 'decode-verify-jwt'
 
   s3-busy-bee-app:
     name: "Deploy Static busy-bee.app Website"

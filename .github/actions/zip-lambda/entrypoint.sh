@@ -8,12 +8,22 @@ configure_aws_credentials() {
     aws configure set default.region "${AWS_REGION}"
 }
 
-install_zip_dependencies(){
+install_dependencies() {
 	echo "Installing and zipping dependencies..."
 	mkdir python
-    echo "Looking into Directory: ${LAMBDA_DIRECTORY}"
-	pip install --target=python -r "${LAMBDA_DIRECTORY}/requirements.txt"
-	zip -r dependencies.zip ./python
+	pip install --target=python -r "Lambda/${LAMBDA_NAME}/requirements.txt"
+}
+
+zip_files() {
+	echo "Copying Lambda scripts into depedencies folder"
+	cp * /python
+	Echo "Zipping everything up"
+	zip -r lambda_funcion.zip ./python
+}
+
+deploy_to_lambda() {
+	echo "Deploying the code to AWS Lambda"
+	aws lambda update-function-code --function-name "${LAMBDA_NAME}" --zip-file fileb://lambda_function.zip
 }
 
 # # publish_dependencies_as_layer(){
@@ -37,14 +47,10 @@ install_zip_dependencies(){
 
 deploy_lambda_function() {
     configure_aws_credentials
-	echo "cofigure complete"
-	install_zip_dependencies
-	echo "depdency install compelte"
-	# publish_dependencies_as_layer
-	# publish_function_code
-	# update_function_layers
+	install_dependencies
+	zip_files
+	deploy_to_lambda
 }
 
 
 deploy_lambda_function
-echo "Each step completed, check the logs if any error occured."
