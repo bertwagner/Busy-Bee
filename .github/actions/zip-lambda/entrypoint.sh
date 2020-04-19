@@ -23,7 +23,7 @@ zip_files() {
 
 deploy_to_lambda() {
 	echo "Deploying the code to AWS Lambda"
-	aws lambda update-function-code --function-name "${LAMBDA_NAME}" --zip-file fileb://lambda_function.zip
+	aws lambda update-function-code --function-name "${LAMBDA_NAME}" --zip-file lambda_function.zip
 }
 
 deploy_lambda_function() {
