@@ -1,22 +1,20 @@
 #!/bin/sh 
 
 set -e
-echo "BERT WAS HERE"
 
+configure_aws_credentials() {
+	aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
+    aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+    aws configure set default.region "${AWS_REGION}"
+}
 
-# configure_aws_credentials(){
-# 	aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
-#     aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
-#     aws configure set default.region "${AWS_REGION}"
-# }
-
-# # install_zip_dependencies(){
-# # 	echo "Installing and zipping dependencies..."
-# # 	mkdir python
-# #     echo "Looking into Directory: ${LAMBDA_DIRECTORY}"
-# # 	pip install --target=python -r "${LAMBDA_DIRECTORY}/requirements.txt"
-# # 	zip -r dependencies.zip ./python
-# # }
+install_zip_dependencies(){
+	echo "Installing and zipping dependencies..."
+	mkdir python
+    echo "Looking into Directory: ${LAMBDA_DIRECTORY}"
+	pip install --target=python -r "${LAMBDA_DIRECTORY}/requirements.txt"
+	zip -r dependencies.zip ./python
+}
 
 # # publish_dependencies_as_layer(){
 # # 	echo "Publishing dependencies as a layer..."
@@ -38,12 +36,13 @@ echo "BERT WAS HERE"
 # # }
 
 deploy_lambda_function() {
-    #configure_aws_credentials
-	# install_zip_dependencies
+    configure_aws_credentials
+	echo "cofigure complete"
+	install_zip_dependencies
+	echo "depdency install compelte"
 	# publish_dependencies_as_layer
 	# publish_function_code
 	# update_function_layers
-	echo "DEPLOYING SUCKA"
 }
 
 
