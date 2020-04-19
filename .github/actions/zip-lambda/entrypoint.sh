@@ -16,7 +16,7 @@ install_dependencies() {
 
 zip_files() {
 	echo "Copying Lambda scripts into depedencies folder"
-	cp * /python
+	cp *.publish_dependencies_as_layer /python
 	Echo "Zipping everything up"
 	zip -r lambda_funcion.zip ./python
 }
