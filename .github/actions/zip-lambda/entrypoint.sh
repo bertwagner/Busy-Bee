@@ -2,9 +2,7 @@
 
 set -e
 echo "BERT WAS HERE"
-# #!/bin/bash
 
-# set -e
 
 # configure_aws_credentials(){
 # 	aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
@@ -39,15 +37,15 @@ echo "BERT WAS HERE"
 # # 	aws lambda update-function-configuration --function-name "${INPUT_LAMBDA_FUNCTION_NAME}" --layers "${INPUT_LAMBDA_LAYER_ARN}:${LAYER_VERSION}"
 # # }
 
-# deploy_lambda_function(){
-#     configure_aws_credentials
-# 	# install_zip_dependencies
-# 	# publish_dependencies_as_layer
-# 	# publish_function_code
-# 	# update_function_layers
-# }
+deploy_lambda_function(){
+    #configure_aws_credentials
+	# install_zip_dependencies
+	# publish_dependencies_as_layer
+	# publish_function_code
+	# update_function_layers
+	echo "DEPLOYING SUCKA"
+}
 
-# echo "test bert1234"
-# printf "TEST TEST BERT1234 TEST"
-# deploy_lambda_function
+
+deploy_lambda_function
 # echo "Each step completed, check the logs if any error occured."
