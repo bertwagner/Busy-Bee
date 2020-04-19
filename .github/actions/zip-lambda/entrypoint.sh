@@ -1,18 +1,20 @@
 #!/bin/bash
 
+set -e
+
 configure_aws_credentials(){
 	aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
     aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
     aws configure set default.region "${AWS_REGION}"
 }
 
-install_zip_dependencies(){
-	echo "Installing and zipping dependencies..."
-	mkdir python
-    echo "Looking into Directory: ${LAMBDA_DIRECTORY}"
-	pip install --target=python -r "${LAMBDA_DIRECTORY}/requirements.txt"
-	zip -r dependencies.zip ./python
-}
+# install_zip_dependencies(){
+# 	echo "Installing and zipping dependencies..."
+# 	mkdir python
+#     echo "Looking into Directory: ${LAMBDA_DIRECTORY}"
+# 	pip install --target=python -r "${LAMBDA_DIRECTORY}/requirements.txt"
+# 	zip -r dependencies.zip ./python
+# }
 
 # publish_dependencies_as_layer(){
 # 	echo "Publishing dependencies as a layer..."
@@ -41,5 +43,6 @@ deploy_lambda_function(){
 	# update_function_layers
 }
 
+printf "TEST TEST BERT TEST"
 deploy_lambda_function
 echo "Each step completed, check the logs if any error occured."
