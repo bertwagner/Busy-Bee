@@ -1,24 +1,15 @@
-# Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file
-# except in compliance with the License. A copy of the License is located at
-#
-#     http://aws.amazon.com/apache2.0/
-#
-# or in the "license" file accompanying this file. This file is distributed on an "AS IS"
-# BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations under the License.
-
 import json
 import time
 import urllib.request
 from jose import jwk, jwt
 from jose.utils import base64url_decode
-import secrets
+import boto3
 
-region = secrets.region
-userpool_id = secrets.userpool_id
-app_client_id = secrets.app_client_id
+ssm = boto3.client('ssm')
+userpool_id = ssm.get_parameter(Name='user-pool-id', WithDecryption=True)['Parameter']['Value']
+app_client_id = ssm.get_parameter(Name='app-client-id', WithDecryption=True)['Parameter']['Value']
+region = "us-east-1"
+
 keys_url = 'https://cognito-idp.{}.amazonaws.com/{}/.well-known/jwks.json'.format(region, userpool_id)
 # instead of re-downloading the public keys every time
 # we download them only on cold start
@@ -85,4 +76,5 @@ if __name__ == '__main__':
             "token_type":"Bearer"
             }
         }
+    
     lambda_handler(event, None)
