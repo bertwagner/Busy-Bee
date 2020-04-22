@@ -18,7 +18,8 @@ zip_files() {
 	echo "Copying Lambda scripts into depedencies folder"
 	cp -R "Lambda/${LAMBDA_NAME}/." python/
 	echo "Zipping everything up"
-	zip -r lambda_function.zip python/.
+	cd python
+	zip -r ../lambda_function.zip .
 }
 
 deploy_to_lambda() {
