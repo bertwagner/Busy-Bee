@@ -19,7 +19,7 @@ zip_files() {
 	cp -R "Lambda/${LAMBDA_NAME}/." python/
 	echo "Zipping everything up"
 	cd python
-	zip -r .././lambda_function.zip .
+	zip -r lambda_function.zip .
 }
 
 deploy_to_lambda() {
