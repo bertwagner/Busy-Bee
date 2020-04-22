@@ -11,12 +11,12 @@ configure_aws_credentials() {
 install_dependencies() {
 	echo "Installing and zipping dependencies..."
 	mkdir python
-	pip install --target=python -r "Lambda/${LAMBDA_NAME}/requirements.txt"
+	# pip install --target=python -r "Lambda/${LAMBDA_NAME}/requirements.txt"
 }
 
 zip_files() {
 	echo "Copying Lambda scripts into depedencies folder"
-	cp -R "Lambda/${LAMBDA_NAME}" python/
+	cp "Lambda/${LAMBDA_NAME}/*.py" python/
 	echo "Zipping everything up"
 	zip -r lambda_function.zip python
 }
