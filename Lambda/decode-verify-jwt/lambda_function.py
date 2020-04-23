@@ -52,7 +52,7 @@ def lambda_handler(event, context):
         print('Token is expired')
         return {
             "statusCode":200,
-            "body": claims
+            "body": claims 
         }
     # and the Audience  (use claims['client_id'] if verifying an access token)
     if claims['aud'] != app_client_id:
