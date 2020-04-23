@@ -52,7 +52,7 @@ def lambda_handler(event, context):
         print('Token is expired')
         return {
             "statusCode":200,
-            "body":"you did it."+json.dumps(event)+json.dumps(claims)
+            "body": claims
         }
     # and the Audience  (use claims['client_id'] if verifying an access token)
     if claims['aud'] != app_client_id:
@@ -61,7 +61,7 @@ def lambda_handler(event, context):
     # now we can use the claims
     return {
             "statusCode":200,
-            "body":"you did it."+claims
+            "body": claims
         }
         
 # the following is useful to make this script executable in both
