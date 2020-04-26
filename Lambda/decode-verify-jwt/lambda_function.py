@@ -67,11 +67,11 @@ def lambda_handler(event, context):
     #TODO SEND BACK THE JWT
     #TODO send back user data here?
     return {
-            "statusCode":302,
-            "headers": {
-                "location" : "https://busy-bee.app"
+            'statusCode':302,
+            'headers': {
+                'location' : 'https://busy-bee.app'
             },
-            "body": claims
+            'body': json.dumps(claims)
         }
         
 # the following is useful to make this script executable in both
