@@ -65,9 +65,12 @@ def lambda_handler(event, context):
         return False
     # now we can use the claims
     #TODO SEND BACK THE JWT
+    #TODO send back user data here?
     return {
             "statusCode":302,
-            "location":"https://busy-bee.app",
+            headers: {
+                "Location" : "https://busy-bee.app"
+            },
             "body": claims
         }
         
