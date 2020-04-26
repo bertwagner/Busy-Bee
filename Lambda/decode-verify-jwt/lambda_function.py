@@ -69,7 +69,7 @@ def lambda_handler(event, context):
     return {
             "statusCode":302,
             "headers": {
-                "Location" : "https://busy-bee.app"
+                "location" : "https://busy-bee.app"
             },
             "body": claims
         }
