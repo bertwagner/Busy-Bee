@@ -68,7 +68,7 @@ def lambda_handler(event, context):
     #TODO send back user data here?
     return {
             "statusCode":302,
-            headers: {
+            "headers": {
                 "Location" : "https://busy-bee.app"
             },
             "body": claims
