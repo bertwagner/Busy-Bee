@@ -30,8 +30,11 @@ def lambda_handler(event, context):
             key_index = i 
             break
     if key_index == -1:
-        print('Public key not found in jwks.json')
-        return False
+        # print('Public key not found in jwks.json')
+        return {
+            "statusCode":500,
+            "body": "Public key not found"
+        }
     # construct the public key
     public_key = jwk.construct(keys[key_index])
     # get the last two sections of the token,
@@ -41,26 +44,30 @@ def lambda_handler(event, context):
     decoded_signature = base64url_decode(encoded_signature.encode('utf-8'))
     # verify the signature
     if not public_key.verify(message.encode("utf8"), decoded_signature):
-        print('Signature verification failed')
-        return False
-    print('Signature successfully verified')
+        # print('Signature verification failed')
+        return {
+            "statusCode":500,
+            "body": "Signature verification failed."
+        }
+    
     # since we passed the verification, we can now safely
     # use the unverified claims
     claims = jwt.get_unverified_claims(token)
     # additionally we can verify the token expiration
     if time.time() > claims['exp']:
-        print('Token is expired')
         return {
-            "statusCode":200,
-            "body": claims 
+            "statusCode":500,
+            "body": "Token is expired. 
         }
     # and the Audience  (use claims['client_id'] if verifying an access token)
     if claims['aud'] != app_client_id:
         print('Token was not issued for this audience')
         return False
     # now we can use the claims
+    #TODO SEND BACK THE JWT
     return {
-            "statusCode":200,
+            "statusCode":302,
+            "location":"https://busy-bee.app",
             "body": claims
         }
         
